@@ -10,7 +10,7 @@ namespace projeto2.API.Model.context
 
         }
 
-        public DbSet<Pessoa> Pessoa { get; set; }
+        public DbSet<Pessoa> pessoaVo { get; set; }
 
         public DbSet<Empresa> Empresa { get; set; }
 
