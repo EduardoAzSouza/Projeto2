@@ -1,5 +1,4 @@
 ﻿using projeto2.API.Model;
-using System.Threading.Tasks;
 
 namespace projeto2.API.Repository
 {

@@ -1,7 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using projeto2.API.Config;
 using projeto2.API.Model.context;
 using projeto2.API.Repository;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace projeto2.API
 {
@@ -18,7 +19,12 @@ namespace projeto2.API
                 new MySqlServerVersion(
                     new Version(8, 0, 21))));
 
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            builder.Services.AddSingleton(mapper);
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
+            builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 
             // Add services to the container.
 

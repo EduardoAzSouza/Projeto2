@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using projeto2.API.Enums;
+using projeto2.API.Model.Base;
 
 namespace projeto2.API.Model
 {
     [Table("empresa")]
-    public class Empresa
+    public class Empresa : BaseEntity
     {
-        public int Id { get; set; }
-
         [Column("cnpj")]
         [Required]
         [StringLength(14)]

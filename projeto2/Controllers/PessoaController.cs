@@ -16,7 +16,6 @@ namespace PessoaController.Controllers
         public ActionResult<Pessoa> CadastrarPessoa(Pessoa pessoa)
         {
             pessoa.Id = pessoas.Count + 1;
-            pessoa.Status = "ativo";
             pessoas.Add(pessoa);
             return Ok(pessoa);
         }

@@ -16,7 +16,6 @@ namespace EmpresaController.Controllers
         public ActionResult<Empresa> CadastrarEmpresa(Empresa Empresa)
         {
             Empresa.Id = Empresas.Count + 1;
-            Empresa.Status = "ativo";
             Empresas.Add(Empresa);
             return Ok(Empresa);
         }

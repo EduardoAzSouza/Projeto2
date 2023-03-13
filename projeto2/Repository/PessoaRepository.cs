@@ -18,7 +18,7 @@ namespace projeto2.API.Repository
 
         public async Task<Pessoa> BuscarPorNome(string nome)
         {
-            return await _dbContext.Pessoa.FirstOrDefaultAsync(p => p.Nome == nome);
+            return await _dbContext.Pessoa.FirstOrDefaultAsync(x => x.Nome == nome);
         }
 
         public async Task<List<Pessoa>> BuscarTodasPessoas()
