@@ -1,0 +1,36 @@
+﻿using projeto2.API.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace projeto2.API.Model
+{
+    [Table("Pessoa")]
+    public class Pessoa
+    {
+        [Column("id")]
+        public int Id { get; set; }
+
+        [Column("Nome")]
+        [Required]
+        [StringLength(80)]
+        public string Nome { get; set; }
+
+        [Column("documento")]
+        [Required]
+        [StringLength(14)]
+        public string Documento { get; set; }
+
+        [Column("telefone")]
+        [StringLength(20)]
+        public string Telefone { get; set; }
+
+        [Column("usuario")]
+        [Required]
+        [StringLength(50)]
+        public string Usuario { get; set; }
+
+        [Column("status")]
+        public Status Status { get; set; }
+        public int EmpresaId { get; set; }
+    }
+}
