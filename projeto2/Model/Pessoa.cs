@@ -31,6 +31,8 @@ namespace projeto2.API.Model
 
         [Column("status")]
         public Status Status { get; set; }
+
+        [ForeignKey("EmpresaId")]
         public int EmpresaId { get; set; }
     }
 }

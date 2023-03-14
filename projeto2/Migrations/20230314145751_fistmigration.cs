@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace projeto2.API.Migrations
 {
-    public partial class firstmigration : Migration
+    public partial class fistmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,7 +81,7 @@ namespace projeto2.API.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Natureza_Juridica = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IdEndereço = table.Column<long>(type: "bigint", nullable: true),
+                    EnderecoId = table.Column<long>(type: "bigint", nullable: true),
                     telefone = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     capital = table.Column<double>(type: "double", nullable: false)
@@ -90,8 +90,8 @@ namespace projeto2.API.Migrations
                 {
                     table.PrimaryKey("PK_empresa", x => x.id);
                     table.ForeignKey(
-                        name: "FK_empresa_Endereco_IdEndereço",
-                        column: x => x.IdEndereço,
+                        name: "FK_empresa_Endereco_EnderecoId",
+                        column: x => x.EnderecoId,
                         principalTable: "Endereco",
                         principalColumn: "id");
                 })
@@ -102,10 +102,15 @@ namespace projeto2.API.Migrations
                 columns: new[] { "id", "documento", "EmpresaId", "Nome", "status", "telefone", "usuario" },
                 values: new object[] { 1L, "66556559885", 0, "Tester", 2, "5456456564654", "Userteste" });
 
+            migrationBuilder.InsertData(
+                table: "Pessoa",
+                columns: new[] { "id", "documento", "EmpresaId", "Nome", "status", "telefone", "usuario" },
+                values: new object[] { 2L, "5456486512", 0, "segundo teste", 3, "5261564184651", "usuariodeteste" });
+
             migrationBuilder.CreateIndex(
-                name: "IX_empresa_IdEndereço",
+                name: "IX_empresa_EnderecoId",
                 table: "empresa",
-                column: "IdEndereço");
+                column: "EnderecoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

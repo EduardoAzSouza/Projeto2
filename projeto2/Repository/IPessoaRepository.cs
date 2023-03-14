@@ -1,5 +1,4 @@
 ﻿using projeto2.API.Data.ValueObjects;
-using projeto2.API.Model;
 
 namespace projeto2.API.Repository
 {

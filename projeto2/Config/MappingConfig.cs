@@ -12,6 +12,8 @@ namespace projeto2.API.Config
             {
                 config.CreateMap<PessoaVO, Pessoa>();
                 config.CreateMap<Pessoa, PessoaVO>();
+                config.CreateMap<EmpresaVO, Empresa>();
+                config.CreateMap<Empresa, EmpresaVO>();
             });
             return mappingconfig;
         }

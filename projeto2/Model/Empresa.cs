@@ -38,7 +38,7 @@ namespace projeto2.API.Model
         [StringLength(50)]
         public string NaturezaJuridica { get; set; }
 
-        [ForeignKey("IdEndereço")]
+        [ForeignKey("EnderecoId")]
         public Endereco Endereco { get; set; }
 
         [Column("telefone")]

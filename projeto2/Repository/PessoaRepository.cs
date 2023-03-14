@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using projeto2.API.Data.ValueObjects;
 using projeto2.API.Model;
 using projeto2.API.Model.context;
-using System.Collections.Generic;
 
 namespace projeto2.API.Repository
 {

@@ -45,7 +45,7 @@ namespace projeto2.API.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("data_abertura");
 
-                    b.Property<long?>("IdEndereço")
+                    b.Property<long?>("EnderecoId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("NaturezaJuridica")
@@ -77,7 +77,7 @@ namespace projeto2.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEndereço");
+                    b.HasIndex("EnderecoId");
 
                     b.ToTable("empresa");
                 });
@@ -166,6 +166,16 @@ namespace projeto2.API.Migrations
                             Status = 2,
                             Telefone = "5456456564654",
                             Usuario = "Userteste"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Documento = "5456486512",
+                            EmpresaId = 0,
+                            Nome = "segundo teste",
+                            Status = 3,
+                            Telefone = "5261564184651",
+                            Usuario = "usuariodeteste"
                         });
                 });
 
@@ -173,7 +183,7 @@ namespace projeto2.API.Migrations
                 {
                     b.HasOne("projeto2.API.Model.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("IdEndereço");
+                        .HasForeignKey("EnderecoId");
 
                     b.Navigation("Endereco");
                 });

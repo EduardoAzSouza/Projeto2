@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
-using System.Runtime;
 
 namespace projeto2.API.Model.context
 {
@@ -10,7 +8,7 @@ namespace projeto2.API.Model.context
         public MySQLContext(DbContextOptions<MySQLContext> options) : base(options){ }
 
         public DbSet<Pessoa> Pessoas { get; set; }
-        public DbSet<Empresa> Empresa { get; set; }
+        public DbSet<Empresa> Empresas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
@@ -22,6 +20,16 @@ namespace projeto2.API.Model.context
                 Telefone = "5456456564654",
                 Usuario = "Userteste",
                 Status = Enums.Status.Pendente,
+                EmpresaId = 0
+            });
+            modelbuilder.Entity<Pessoa>().HasData(new Pessoa
+            {
+                Id = 2,
+                Nome = "segundo teste",
+                Documento = "5456486512",
+                Telefone = "5261564184651",
+                Usuario = "usuariodeteste",
+                Status = Enums.Status.Ativo,
                 EmpresaId = 0
             });
 
