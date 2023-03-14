@@ -31,7 +31,7 @@ namespace projeto2.API.Model
 
         [Column("cnae")]
         [Required]
-        public List<string> CNAE { get; set; }
+        public string CNAE { get; set; }
 
         [Column("Natureza_Juridica")]
         [Required]

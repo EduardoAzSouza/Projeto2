@@ -1,6 +1,8 @@
-﻿namespace projeto2.API.Model
+﻿using projeto2.API.Model.Base;
+
+namespace projeto2.API.Model
 {
-    public class Endereco
+    public class Endereco : BaseEntity
     {
         public string Cep { get; set; }
         public string Estado { get; set; }

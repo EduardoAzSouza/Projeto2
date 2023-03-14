@@ -2,7 +2,7 @@
 
 namespace projeto2.API.Enums
 {
-    public enum Status
+    public enum Status : int
     {
         [Description("Inativo")]
         Inativo = 1,

@@ -8,6 +8,8 @@ namespace projeto2.API.Model
     [Table("Pessoa")]
     public class Pessoa : BaseEntity
     {
+        internal string telefone;
+
         [Column("Nome")]
         [Required]
         [StringLength(80)]

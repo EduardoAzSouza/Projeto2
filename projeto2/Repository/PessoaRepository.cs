@@ -1,72 +1,72 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using projeto2.API.Data.ValueObjects;
 using projeto2.API.Model;
 using projeto2.API.Model.context;
+using System.Collections.Generic;
 
 namespace projeto2.API.Repository
 {
     public class PessoaRepository : IPessoaRepository
     {
-        private readonly MySQLContext _dbContext;
-        public PessoaRepository(MySQLContext mySQLContext)
+        private readonly MySQLContext _context;
+        private IMapper _mapper;
+        public PessoaRepository(MySQLContext mySQLContext, IMapper mapper)
         {
-            _dbContext = mySQLContext;
+            _context = mySQLContext;
+            _mapper = mapper;
         }
-        public async Task<PessoaVO> BuscarPorID(int id)
+        public async Task<PessoaVO> BuscarPorID(long id)
         {
-            return await _dbContext.pessoaVo.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<Pessoa> BuscarPorNome(string nome)
-        {
-            return await _dbContext.pessoaVo.FirstOrDefaultAsync(x => x.Nome == nome);
-        }
-
-        public async Task<List<Pessoa>> BuscarTodasPessoas()
-        {
-            return  await _dbContext.pessoaVo.ToListAsync();
+            Pessoa pessoa = await _context.Pessoas.Where(p => p.Id == id)
+                .FirstOrDefaultAsync() ?? new Pessoa();
+            return _mapper.Map<PessoaVO>(pessoa);
         }
 
-        public async Task<Pessoa> Adicionar(Pessoa pessoa)
+        public async Task<PessoaVO> BuscarPorNome(string nome)
         {
-            await _dbContext.pessoaVo.AddAsync(pessoa);
-            await _dbContext.SaveChangesAsync();
-
-            return pessoa;
+            Pessoa pessoa = await _context.Pessoas.Where(p => p.Nome == nome)
+                .FirstOrDefaultAsync() ?? new Pessoa();
+            return _mapper.Map<PessoaVO>(pessoa);
         }
 
-        public async Task<Pessoa> Atualizar(Pessoa pessoa, int id)
+        public async Task<IEnumerable<PessoaVO>> BuscarTodasPessoas()
         {
-            Pessoa pessoaPorId = await BuscarPorID(id);
-            if(pessoaPorId == null)
+            List<Pessoa> pessoa = await _context.Pessoas.ToListAsync();
+            return _mapper.Map<List<PessoaVO>>(pessoa);
+        }
+
+        public async Task<PessoaVO> Adicionar(PessoaVO vo)
+        {
+            Pessoa pessoa = _mapper.Map<Pessoa>(vo);
+            _context.Pessoas.Add(pessoa);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<PessoaVO>(pessoa);
+        }
+
+        public async Task<PessoaVO> Atualizar(PessoaVO vo)
+        {
+            Pessoa pessoa = _mapper.Map<Pessoa>(vo);
+            _context.Pessoas.Update(pessoa);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<PessoaVO>(pessoa);
+        }
+
+        public async Task<bool> Apagar(long id)
+        {
+            try
             {
-                throw new Exception($"Usuario para o ID:{id} não foi encontrado.");
+                Pessoa pessoa = await _context.Pessoas.Where(p => p.Id == id)
+                .FirstOrDefaultAsync() ?? new Pessoa();
+                if (pessoa.Id <= 0) return false;
+                _context.Pessoas.Remove(pessoa);
+                await _context.SaveChangesAsync();
+                return true;
             }
-
-            pessoaPorId.Nome = pessoa.Nome;
-            pessoaPorId.Documento = pessoa.Documento;
-            pessoaPorId.Telefone = pessoa.Telefone;
-            pessoaPorId.Usuario = pessoa.Usuario;
-            pessoaPorId.EmpresaId = pessoa.EmpresaId;
-
-            _dbContext.pessoaVo.Update(pessoaPorId);
-            await _dbContext.SaveChangesAsync();
-
-            return pessoaPorId;
-        }
-
-        public async Task<bool> Apagar(int id)
-        {
-            Pessoa pessoaPorId = await BuscarPorID(id);
-            if (pessoaPorId == null)
+            catch (Exception)
             {
-                throw new Exception($"Usuario para o ID:{id} não foi encontrado.");
+                return false;
             }
-
-            _dbContext.pessoaVo.Remove(pessoaPorId);
-            await _dbContext.SaveChangesAsync();
-
-            return true;
         } 
     }
 }

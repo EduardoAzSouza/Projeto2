@@ -2,7 +2,7 @@
 
 namespace projeto2.API.Data.ValueObjects
 {
-    public class PessoaVO
+    public class EmpresaVO
     {
         public long Id { get; set; }
         public string Nome { get; set; }
