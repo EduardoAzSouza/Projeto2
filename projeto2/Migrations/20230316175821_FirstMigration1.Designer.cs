@@ -11,8 +11,8 @@ using projeto2.API.Model.context;
 namespace projeto2.API.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    [Migration("20230316055743_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20230316175821_FirstMigration1")]
+    partial class FirstMigration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,8 +47,9 @@ namespace projeto2.API.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("data_abertura");
 
-                    b.Property<long?>("EnderecoId")
-                        .HasColumnType("bigint");
+                    b.Property<long>("EnderecoId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("EnderecoId");
 
                     b.Property<string>("NaturezaJuridica")
                         .IsRequired()
@@ -128,8 +129,9 @@ namespace projeto2.API.Migrations
                         .HasColumnType("varchar(14)")
                         .HasColumnName("documento");
 
-                    b.Property<long>("EmpresaId")
-                        .HasColumnType("bigint");
+                    b.Property<long?>("EmpresaId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("EmpresaId");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -155,38 +157,29 @@ namespace projeto2.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pessoa");
+                    b.HasIndex("EmpresaId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Documento = "66556559885",
-                            EmpresaId = 0L,
-                            Nome = "Tester",
-                            Status = "Pendente",
-                            Telefone = "5456456564654",
-                            Usuario = "Userteste"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Documento = "5456486512",
-                            EmpresaId = 0L,
-                            Nome = "segundo teste",
-                            Status = "Ativo",
-                            Telefone = "5261564184651",
-                            Usuario = "usuariodeteste"
-                        });
+                    b.ToTable("Pessoa");
                 });
 
             modelBuilder.Entity("projeto2.API.Model.Empresa", b =>
                 {
                     b.HasOne("projeto2.API.Model.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("projeto2.API.Model.Pessoa", b =>
+                {
+                    b.HasOne("projeto2.API.Model.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId");
+
+                    b.Navigation("Empresa");
                 });
 #pragma warning restore 612, 618
         }

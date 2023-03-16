@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using projeto2.API.Data.ValueObjects;
-using projeto2.API.Enums;
-using System.Runtime.ConstrainedExecution;
 
 namespace projeto2.API.Model.context
 {
@@ -24,7 +21,7 @@ namespace projeto2.API.Model.context
                 .HasConversion<string>();
 
             base.OnModelCreating(modelbuilder);
-
+            /*
             modelbuilder.Entity<Pessoa>().HasData(new Pessoa
             {
                 Id = 1,
@@ -45,7 +42,7 @@ namespace projeto2.API.Model.context
                 Status = Enums.Status.Ativo,
                 EmpresaId = 0
             });
-            /*
+            
             modelbuilder.Entity<Endereco>().HasData(new Endereco
             {
                 Id = 1,
@@ -56,7 +53,6 @@ namespace projeto2.API.Model.context
                 Numero = "2568",
                 Bairro = "St Teste"
             });
-            
             modelbuilder.Entity<Empresa>().HasData(new Empresa
             {
                 Id = 1,
@@ -67,7 +63,15 @@ namespace projeto2.API.Model.context
                 NomeFantasia = "Teste",
                 CNAE = "6911-7/01",
                 NaturezaJuridica = "EIRELI",
-                Endereco = 1,
+                Endereco = new Endereco()
+                {
+                    Cep = "54564856",
+                    Estado = "Sp",
+                    Cidade = "Testelandia",
+                    Rua = "Rua dos Testes",
+                    Numero = "2568",
+                    Bairro = "St Teste"
+                },
                 Telefone = "(12)3456-7891",
                 Capital = 1000000
             });

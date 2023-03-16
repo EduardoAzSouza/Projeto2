@@ -31,7 +31,10 @@ namespace projeto2.API.Repository
 
         public async Task<IEnumerable<Pessoa>> BuscarTodasPessoas()
         {
-            List<Pessoa> pessoa = await _context.Pessoas.ToListAsync();
+            List<Pessoa> pessoa = await _context.Pessoas
+                .Include(x => x.Empresa)
+                    .ThenInclude(e => e.Endereco)
+                .ToListAsync();
             return _mapper.Map<List<Pessoa>>(pessoa);
         }
 

@@ -11,5 +11,7 @@ namespace projeto2.API.Repository
         Task<Empresa> BuscarPorNome(string nome);
         Task<Empresa> BuscarPorCnpj(string cnpj);
         Task<bool> Apagar(long id);
+
+        Task<bool> TodasPessoasEmpresa(long id);
     }
 }

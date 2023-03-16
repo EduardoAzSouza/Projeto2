@@ -38,6 +38,9 @@ namespace projeto2.API.Model
         [StringLength(50)]
         public string NaturezaJuridica { get; set; }
 
+        [Column("EnderecoId")]
+        public long EnderecoId { get; set; }
+
         [ForeignKey("EnderecoId")]
         public Endereco Endereco { get; set; }
 
@@ -47,5 +50,7 @@ namespace projeto2.API.Model
 
         [Column("capital")]
         public double Capital { get; set; }
+
+        List<Pessoa> Pessoas { get; set; }
     }
 }
