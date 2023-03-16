@@ -8,7 +8,6 @@ namespace projeto2.API.Model
     [Table("Pessoa")]
     public class Pessoa : BaseEntity
     {
-        internal string telefone;
 
         [Column("Nome")]
         [Required]
@@ -33,6 +32,7 @@ namespace projeto2.API.Model
         public Status Status { get; set; }
 
         [ForeignKey("EmpresaId")]
-        public int EmpresaId { get; set; }
+        public long EmpresaId { get; set; }
+
     }
 }

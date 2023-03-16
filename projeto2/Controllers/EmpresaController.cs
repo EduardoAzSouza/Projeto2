@@ -15,14 +15,14 @@ namespace EmpresaController.Controllers
                 ArgumentNullException(nameof(repository));
         }
 
-        [HttpGet]
+        [HttpGet("BuscarTodasEmpresas")]
         public async Task<ActionResult<IEnumerable<EmpresaVO>>> BuscarTodasEmpresas()
         {
             var empresas = await _repository.BuscarTodasEmpresas();
             return Ok(empresas);
         }
 
-        [HttpGet("{nome}")]
+        [HttpGet("BuscarPorNome/{nome}")]
         public async Task<ActionResult<EmpresaVO>> BuscarPorNome(string nome)
         {
             var empresa = await _repository.BuscarPorNome(nome);
@@ -30,7 +30,15 @@ namespace EmpresaController.Controllers
             return Ok(empresa);
         }
 
-        [HttpPost]
+        [HttpGet("BuscarPorCnpj/{cnpj}")]
+        public async Task<ActionResult<EmpresaVO>> BuscarPorCnpj(string cnpj)
+        {
+            var empresa = await _repository.BuscarPorCnpj(cnpj);
+            if (empresa == null) return NotFound();
+            return Ok(empresa);
+        }
+
+        [HttpPost("Adicionar")]
         public async Task<ActionResult<EmpresaVO>> Adicionar([FromBody] EmpresaVO vo)
         {
             if (vo == null) return BadRequest();
@@ -38,7 +46,7 @@ namespace EmpresaController.Controllers
             return Ok(empresa);
         }
 
-        [HttpPut]
+        [HttpPut("Atualizar")]
         public async Task<ActionResult<EmpresaVO>> Atualizar([FromBody] EmpresaVO vo)
         {
             if (vo == null) return BadRequest();
@@ -46,7 +54,7 @@ namespace EmpresaController.Controllers
             return Ok(empresa);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Deletar/{id}")]
         public async Task<ActionResult> Apagar(long id)
         {
             var status = await _repository.Apagar(id);

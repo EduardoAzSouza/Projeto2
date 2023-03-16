@@ -20,20 +20,20 @@ namespace projeto2.API.Repository
         public async Task<EmpresaVO> BuscarPorNome(string nome)
         {
             Empresa empresa = await _context.Empresas.Where(p => p.NomeFantasia == nome)
-                .FirstOrDefaultAsync() ?? new Empresa();
+                .Include(e => e.Endereco).FirstOrDefaultAsync() ?? new Empresa();
             return _mapper.Map<EmpresaVO>(empresa);
         }
 
         public async Task<EmpresaVO> BuscarPorCnpj(string cnpj)
         {
             Empresa empresa = await _context.Empresas.Where(p => p.Cnpj == cnpj)
-                .FirstOrDefaultAsync() ?? new Empresa();
+                .Include(e => e.Endereco).FirstOrDefaultAsync() ?? new Empresa();
             return _mapper.Map<EmpresaVO>(empresa);
         }
 
         public async Task<List<EmpresaVO>> BuscarTodasEmpresas()
         {
-            List<Empresa> empresa = await _context.Empresas.ToListAsync();
+            List<Empresa> empresa = await _context.Empresas.Include(e => e.Endereco).ToListAsync();
             return _mapper.Map<List<EmpresaVO>>(empresa);
         }
         public async Task<EmpresaVO> Adicionar(EmpresaVO vo)

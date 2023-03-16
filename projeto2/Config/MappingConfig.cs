@@ -10,10 +10,10 @@ namespace projeto2.API.Config
         {
             var mappingconfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<PessoaVO, Pessoa>();
-                config.CreateMap<Pessoa, PessoaVO>();
-                config.CreateMap<EmpresaVO, Empresa>();
-                config.CreateMap<Empresa, EmpresaVO>();
+                config.CreateMap<PessoaVO, Pessoa>().ReverseMap();
+                config.CreateMap<PessoaUpdateVO, Pessoa>().ReverseMap();
+                config.CreateMap<EmpresaVO, Empresa>().ReverseMap();
+
             });
             return mappingconfig;
         }

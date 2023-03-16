@@ -1,7 +1,8 @@
 ﻿namespace projeto2.API.Data.ValueObjects
 {
-    public class PessoaVO
+    public class PessoaUpdateVO
     {
+        public long Id { get; set; }
         public string Nome { get; set; }
         public string Documento { get; set; }
         public string Telefone { get; set; }

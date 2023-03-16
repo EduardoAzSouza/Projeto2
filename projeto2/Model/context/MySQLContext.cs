@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using projeto2.API.Data.ValueObjects;
 
 namespace projeto2.API.Model.context
 {
