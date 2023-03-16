@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using projeto2.API.Data.ValueObjects;
+using projeto2.API.Model;
 using projeto2.API.Repository;
 
 namespace EmpresaController.Controllers
@@ -16,14 +17,14 @@ namespace EmpresaController.Controllers
         }
 
         [HttpGet("BuscarTodasEmpresas")]
-        public async Task<ActionResult<IEnumerable<EmpresaVO>>> BuscarTodasEmpresas()
+        public async Task<ActionResult<IEnumerable<Empresa>>> BuscarTodasEmpresas()
         {
             var empresas = await _repository.BuscarTodasEmpresas();
             return Ok(empresas);
         }
 
         [HttpGet("BuscarPorNome/{nome}")]
-        public async Task<ActionResult<EmpresaVO>> BuscarPorNome(string nome)
+        public async Task<ActionResult<Empresa>> BuscarPorNome(string nome)
         {
             var empresa = await _repository.BuscarPorNome(nome);
             if (empresa == null) return NotFound();
@@ -31,7 +32,7 @@ namespace EmpresaController.Controllers
         }
 
         [HttpGet("BuscarPorCnpj/{cnpj}")]
-        public async Task<ActionResult<EmpresaVO>> BuscarPorCnpj(string cnpj)
+        public async Task<ActionResult<Empresa>> BuscarPorCnpj(string cnpj)
         {
             var empresa = await _repository.BuscarPorCnpj(cnpj);
             if (empresa == null) return NotFound();
@@ -47,7 +48,7 @@ namespace EmpresaController.Controllers
         }
 
         [HttpPut("Atualizar")]
-        public async Task<ActionResult<EmpresaVO>> Atualizar([FromBody] EmpresaVO vo)
+        public async Task<ActionResult<EmpresaUpdateVO>> Atualizar([FromBody] EmpresaUpdateVO vo)
         {
             if (vo == null) return BadRequest();
             var empresa = await _repository.Atualizar(vo);

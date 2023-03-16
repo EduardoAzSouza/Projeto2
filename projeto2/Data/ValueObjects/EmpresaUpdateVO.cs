@@ -2,8 +2,9 @@
 
 namespace projeto2.API.Data.ValueObjects
 {
-    public class EmpresaVO
+    public class EmpresaUpdateVO
     {
+        public long Id { get; set; }
         public string Cnpj { get; set; }
         public string DataAbertura { get; set; }
         public string NomeEmpresarial { get; set; }

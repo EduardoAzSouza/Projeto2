@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace projeto2.API.Migrations
 {
-    public partial class fistmigration : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,13 +22,11 @@ namespace projeto2.API.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Estado = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Rua = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Cidade = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Numero = table.Column<string>(type: "longtext", nullable: true)
+                    Rua = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Complemento = table.Column<string>(type: "longtext", nullable: true)
+                    Numero = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Bairro = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -53,8 +51,9 @@ namespace projeto2.API.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     usuario = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    status = table.Column<int>(type: "int", nullable: false),
-                    EmpresaId = table.Column<int>(type: "int", nullable: false)
+                    status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmpresaId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +69,8 @@ namespace projeto2.API.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     cnpj = table.Column<string>(type: "varchar(14)", maxLength: 14, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    status = table.Column<int>(type: "int", nullable: false),
+                    status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     data_abertura = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     nome_empresarial = table.Column<string>(type: "varchar(120)", maxLength: 120, nullable: false)
@@ -100,12 +100,12 @@ namespace projeto2.API.Migrations
             migrationBuilder.InsertData(
                 table: "Pessoa",
                 columns: new[] { "id", "documento", "EmpresaId", "Nome", "status", "telefone", "usuario" },
-                values: new object[] { 1L, "66556559885", 0, "Tester", 2, "5456456564654", "Userteste" });
+                values: new object[] { 1L, "66556559885", 0L, "Tester", "Pendente", "5456456564654", "Userteste" });
 
             migrationBuilder.InsertData(
                 table: "Pessoa",
                 columns: new[] { "id", "documento", "EmpresaId", "Nome", "status", "telefone", "usuario" },
-                values: new object[] { 2L, "5456486512", 0, "segundo teste", 3, "5261564184651", "usuariodeteste" });
+                values: new object[] { 2L, "5456486512", 0L, "segundo teste", "Ativo", "5261564184651", "usuariodeteste" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_empresa_EnderecoId",

@@ -11,8 +11,8 @@ using projeto2.API.Model.context;
 namespace projeto2.API.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    [Migration("20230314145751_fistmigration")]
-    partial class fistmigration
+    [Migration("20230316055743_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,8 +68,9 @@ namespace projeto2.API.Migrations
                         .HasColumnType("varchar(120)")
                         .HasColumnName("nome_fantasia");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext")
                         .HasColumnName("status");
 
                     b.Property<string>("Telefone")
@@ -100,9 +101,6 @@ namespace projeto2.API.Migrations
                     b.Property<string>("Cidade")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Complemento")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
@@ -130,8 +128,8 @@ namespace projeto2.API.Migrations
                         .HasColumnType("varchar(14)")
                         .HasColumnName("documento");
 
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("int");
+                    b.Property<long>("EmpresaId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -139,8 +137,9 @@ namespace projeto2.API.Migrations
                         .HasColumnType("varchar(80)")
                         .HasColumnName("Nome");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext")
                         .HasColumnName("status");
 
                     b.Property<string>("Telefone")
@@ -163,9 +162,9 @@ namespace projeto2.API.Migrations
                         {
                             Id = 1L,
                             Documento = "66556559885",
-                            EmpresaId = 0,
+                            EmpresaId = 0L,
                             Nome = "Tester",
-                            Status = 2,
+                            Status = "Pendente",
                             Telefone = "5456456564654",
                             Usuario = "Userteste"
                         },
@@ -173,9 +172,9 @@ namespace projeto2.API.Migrations
                         {
                             Id = 2L,
                             Documento = "5456486512",
-                            EmpresaId = 0,
+                            EmpresaId = 0L,
                             Nome = "segundo teste",
-                            Status = 3,
+                            Status = "Ativo",
                             Telefone = "5261564184651",
                             Usuario = "usuariodeteste"
                         });
