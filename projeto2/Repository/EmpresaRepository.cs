@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using projeto2.API.Data.ValueObjects;
+using projeto2.API.Enums;
 using projeto2.API.Model;
 using projeto2.API.Model.context;
 
@@ -17,29 +18,30 @@ namespace projeto2.API.Repository
             _mapper = mapper;
         }
 
-        public async Task<Empresa> BuscarPorNome(string nome)
+        public async Task<EmpresaViewVO> BuscarPorNome(string nome)
         {
             Empresa empresa = await _context.Empresas.Where(p => p.NomeFantasia == nome)
-                .Include(e => e.Endereco).FirstOrDefaultAsync() ?? new Empresa();
-            return _mapper.Map<Empresa>(empresa);
+                .Include(e => e.Endereco).FirstOrDefaultAsync();
+            return _mapper.Map<EmpresaViewVO>(empresa);
         }
 
-        public async Task<Empresa> BuscarPorCnpj(string cnpj)
+        public async Task<EmpresaViewVO> BuscarPorCnpj(string cnpj)
         {
             Empresa empresa = await _context.Empresas.Where(p => p.Cnpj == cnpj)
-                .Include(e => e.Endereco).FirstOrDefaultAsync() ?? new Empresa();
-            return _mapper.Map<Empresa>(empresa);
+                .Include(e => e.Endereco).FirstOrDefaultAsync();
+            return _mapper.Map<EmpresaViewVO>(empresa);
         }
 
-        public async Task<List<Empresa>> BuscarTodasEmpresas()
+        public async Task<List<EmpresaViewVO>> BuscarTodasEmpresas()
         {
             List<Empresa> empresa = await _context.Empresas.Include(e => e.Endereco).ToListAsync();
-            return _mapper.Map<List<Empresa>>(empresa);
+            return _mapper.Map<List<EmpresaViewVO>>(empresa);
         }
         public async Task<EmpresaVO> Adicionar(EmpresaVO vo)
         {
             Empresa empresa = _mapper.Map<Empresa>(vo);
-            if (vo.Cnpj == "string" || vo.DataAbertura == "string" || vo.NomeEmpresarial == "string" || vo.NomeFantasia == "string" || vo.NaturezaJuridica == "string" || vo.Telefone == "string" || vo.Capital == 0 ||
+            if (vo.Cnpj == null || vo.DataAbertura == null || vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || vo.Telefone == null ||
+                vo.Cnpj == "string" || vo.DataAbertura == "string" || vo.NomeEmpresarial == "string" || vo.NomeFantasia == "string" || vo.NaturezaJuridica == "string" || vo.Telefone == "string" || vo.Capital == 0 ||
                 vo.Cnpj.Trim() == "" || vo.DataAbertura.Trim() == "" || vo.NomeEmpresarial.Trim() == "" || vo.NomeFantasia.Trim() == "" || vo.NaturezaJuridica.Trim() == "" || vo.Telefone.Trim() == "" || vo.Endereco == null)
             {
                 empresa.Status = Enums.Status.Pendente;
@@ -56,7 +58,8 @@ namespace projeto2.API.Repository
         public async Task<EmpresaUpdateVO> Atualizar(EmpresaUpdateVO vo)
         {
             Empresa empresa = _mapper.Map<Empresa>(vo);
-            if (vo.Cnpj == "string" || vo.DataAbertura == "string" || vo.NomeEmpresarial == "string" || vo.NomeFantasia == "string" || vo.NaturezaJuridica == "string" || vo.Telefone == "string" || vo.Capital == 0 ||
+            if (vo.Cnpj == null || vo.DataAbertura == null || vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || vo.Telefone == null ||
+                vo.Cnpj == "string" || vo.DataAbertura == "string" || vo.NomeEmpresarial == "string" || vo.NomeFantasia == "string" || vo.NaturezaJuridica == "string" || vo.Telefone == "string" || vo.Capital == 0 ||
                 vo.Cnpj.Trim() == "" || vo.DataAbertura.Trim() == "" || vo.NomeEmpresarial.Trim() == "" || vo.NomeFantasia.Trim() == "" || vo.NaturezaJuridica.Trim() == "" || vo.Telefone.Trim() == "" || vo.Endereco == null)
             {
                 empresa.Status = Enums.Status.Pendente;
@@ -75,9 +78,13 @@ namespace projeto2.API.Repository
             try
             {
                 Empresa empresa = await _context.Empresas.Where(p => p.Id == id)
-                .FirstOrDefaultAsync() ?? new Empresa();
-                if (empresa.Id <= 0) return false;
+                .FirstOrDefaultAsync();
+                Endereco endereco = await _context.Endereco
+                .Where(p => p.Id == empresa.EnderecoId)
+                .FirstOrDefaultAsync();
+                if (empresa == null) return false;
                 _context.Empresas.Remove(empresa);
+                _context.Endereco.Remove(endereco);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -85,6 +92,41 @@ namespace projeto2.API.Repository
             {
                 return false;
             }
+        }
+
+        public async Task<List<PessoaVO>> TodasPessoasEmpresa(long id)
+        {
+            List<Pessoa> pessoas = await _context.Pessoas
+                .Where(p => p.Empresa.Id == id)
+                .Include(p => p.Empresa)
+                .ToListAsync();
+            var empresa = await _context.Empresas
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
+            empresa.Pessoas = pessoas;
+
+            return _mapper.Map<List<PessoaVO>>(pessoas);
+        }
+        public async Task<bool> Atualizar_Status(long id)
+        {
+            Empresa empresa = await _context.Empresas.Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
+            if (id <= 0 || empresa.Status == Enums.Status.Pendente) 
+                return false;
+            var teste = await TodasPessoasEmpresa(id);
+            if (teste.Count != 0) return false;
+            if (empresa.Status == Enums.Status.Ativo)
+            {
+                empresa.Status = Enums.Status.Inativo;
+            }
+            else
+            {
+                empresa.Status = Enums.Status.Ativo;
+            }
+                
+            _context.Empresas.Update(empresa);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
     }

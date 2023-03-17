@@ -50,7 +50,6 @@ namespace projeto2.API.Model
 
         [Column("capital")]
         public double Capital { get; set; }
-
-        List<Pessoa> Pessoas { get; set; }
+        public IEnumerable<Pessoa> Pessoas { get; set; }
     }
 }

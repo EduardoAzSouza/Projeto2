@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using projeto2.API.Data.ValueObjects;
-using projeto2.API.Enums;
-using projeto2.API.Model;
 using projeto2.API.Repository;
-using System;
 
 namespace PessoaController.Controllers
 {
@@ -20,14 +17,14 @@ namespace PessoaController.Controllers
         }
 
         [HttpGet("BuscarTodasPessoas")]
-        public async Task<ActionResult<IEnumerable<Pessoa>>> BuscarTodasPessoas()
+        public async Task<ActionResult<IEnumerable<PessoaViewVO>>> BuscarTodasPessoas()
         {
             var pessoas = await _repository.BuscarTodasPessoas();
             return Ok(pessoas);
         }
 
         [HttpGet("BuscarPorID/{id}")]
-        public async Task<ActionResult<Pessoa>> BuscarPorID(long id)
+        public async Task<ActionResult<PessoaViewVO>> BuscarPorID(long id)
         {
             var pessoa = await _repository.BuscarPorID(id);
             if (pessoa == null) return NotFound();
@@ -35,7 +32,7 @@ namespace PessoaController.Controllers
         }
 
         [HttpGet("BuscarPorNome/{nome}")]
-        public async Task<ActionResult<Pessoa>> BuscarPorNome(string nome)
+        public async Task<ActionResult<PessoaViewVO>> BuscarPorNome(string nome)
         {
             var pessoa = await _repository.BuscarPorNome(nome);
             if (pessoa == null) return NotFound();
@@ -47,7 +44,8 @@ namespace PessoaController.Controllers
         {
             if (vo == null) return BadRequest();
             var pessoa = await _repository.Adicionar(vo);
-            return Ok(pessoa);
+            if(pessoa != null) return Ok(pessoa);
+            else return BadRequest("CPF Igual");
         }
 
         [HttpPut("Atualizar")]
@@ -75,10 +73,10 @@ namespace PessoaController.Controllers
         }
 
         [HttpPut("vincular_empresa")]
-        public async Task<ActionResult<PessoaUpdateVO>> vincular_empresa(long pessoa_id, long empresa_id)
+        public async Task<ActionResult<PessoaViewVO>> vincular_empresa(long pessoa_id, long empresa_id)
         {
+            if (pessoa_id <= 0) return BadRequest();
             var status = await _repository.vincular_empresa(pessoa_id, empresa_id);
-            if (!status) return BadRequest();
             return Ok(status);
         }
     }

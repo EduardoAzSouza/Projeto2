@@ -7,6 +7,5 @@ namespace projeto2.API.Enums
         Inativo,
         Pendente,
         Ativo
-
     }
 }

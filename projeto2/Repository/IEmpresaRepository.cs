@@ -7,11 +7,11 @@ namespace projeto2.API.Repository
     {
         Task<EmpresaVO> Adicionar(EmpresaVO empresaVo);
         Task<EmpresaUpdateVO> Atualizar(EmpresaUpdateVO empresa);
-        Task<List<Empresa>> BuscarTodasEmpresas();
-        Task<Empresa> BuscarPorNome(string nome);
-        Task<Empresa> BuscarPorCnpj(string cnpj);
+        Task<List<EmpresaViewVO>> BuscarTodasEmpresas();
+        Task<EmpresaViewVO> BuscarPorNome(string nome);
+        Task<EmpresaViewVO> BuscarPorCnpj(string cnpj);
         Task<bool> Apagar(long id);
-
-        Task<bool> TodasPessoasEmpresa(long id);
+        Task<bool> Atualizar_Status(long id);
+        Task<List<PessoaVO>> TodasPessoasEmpresa(long id);
     }
 }

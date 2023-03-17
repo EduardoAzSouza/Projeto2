@@ -17,14 +17,14 @@ namespace EmpresaController.Controllers
         }
 
         [HttpGet("BuscarTodasEmpresas")]
-        public async Task<ActionResult<IEnumerable<Empresa>>> BuscarTodasEmpresas()
+        public async Task<ActionResult<IEnumerable<EmpresaViewVO>>> BuscarTodasEmpresas()
         {
             var empresas = await _repository.BuscarTodasEmpresas();
             return Ok(empresas);
         }
 
         [HttpGet("BuscarPorNome/{nome}")]
-        public async Task<ActionResult<Empresa>> BuscarPorNome(string nome)
+        public async Task<ActionResult<EmpresaViewVO>> BuscarPorNome(string nome)
         {
             var empresa = await _repository.BuscarPorNome(nome);
             if (empresa == null) return NotFound();
@@ -32,7 +32,7 @@ namespace EmpresaController.Controllers
         }
 
         [HttpGet("BuscarPorCnpj/{cnpj}")]
-        public async Task<ActionResult<Empresa>> BuscarPorCnpj(string cnpj)
+        public async Task<ActionResult<EmpresaViewVO>> BuscarPorCnpj(string cnpj)
         {
             var empresa = await _repository.BuscarPorCnpj(cnpj);
             if (empresa == null) return NotFound();
@@ -62,6 +62,20 @@ namespace EmpresaController.Controllers
             if (!status) return BadRequest();
             return Ok(status);
         }
+        [HttpPut("alterar_status")]
+        public async Task<ActionResult> Atualizar_Status(long id)
+        {
+            var status = await _repository.Atualizar_Status(id);
+            if (!status) return BadRequest();
+            return Ok(status);
+        }
 
+        [HttpGet("TodasPessoasEmpresa/{id}")]
+        public async Task<ActionResult<IEnumerable<PessoaVO>>> TodasPessoasEmpresa(long id)
+        {
+            var pessoas = await _repository.TodasPessoasEmpresa(id);
+            return Ok(pessoas);
+        }
+        
     }
 }

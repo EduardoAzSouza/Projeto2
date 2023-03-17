@@ -31,11 +31,12 @@ namespace projeto2.API.Model
         [Column("status")]
         public Status Status { get; set; }
 
+        [ForeignKey("EmpresaId")]
         [Column("EmpresaId")]
         public long? EmpresaId { get; set; }
 
         [ForeignKey("EmpresaId")]
-        public Empresa Empresa { get; set; }
+        public Empresa? Empresa { get; set; }
 
     }
 }

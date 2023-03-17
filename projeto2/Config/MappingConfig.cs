@@ -12,12 +12,11 @@ namespace projeto2.API.Config
             {
                 config.CreateMap<PessoaVO, Pessoa>().ReverseMap();
                 config.CreateMap<PessoaUpdateVO, Pessoa>().ReverseMap();
+                config.CreateMap<PessoaViewVO, Pessoa>().ReverseMap();
                 config.CreateMap<EmpresaVO, Empresa>().ReverseMap();
                 config.CreateMap<EmpresaUpdateVO, Empresa>().ReverseMap();
+                config.CreateMap<EmpresaViewVO, Empresa>().ReverseMap();
                 config.CreateMap<EnderecoVO, Endereco>().ReverseMap();
-
-
-
             });
             return mappingconfig;
         }

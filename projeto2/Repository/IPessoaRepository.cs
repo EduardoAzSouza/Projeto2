@@ -7,11 +7,11 @@ namespace projeto2.API.Repository
     {
         Task<PessoaVO> Adicionar(PessoaVO pessoaVo);
         Task<PessoaUpdateVO> Atualizar(PessoaUpdateVO pessoa);
-        Task<IEnumerable<Pessoa>> BuscarTodasPessoas();
-        Task<Pessoa> BuscarPorNome(string nome);
-        Task<Pessoa> BuscarPorID(long id);
+        Task<IEnumerable<PessoaViewVO>> BuscarTodasPessoas();
+        Task<PessoaViewVO> BuscarPorNome(string nome);
+        Task<PessoaViewVO> BuscarPorID(long id);
         Task<bool> Apagar(long id);
         Task<bool> Atualizar_Status(long id);
-        Task<bool> vincular_empresa(long pessoa_id, long empresa_id);
+        Task<PessoaViewVO> vincular_empresa(long pessoa_id, long empresa_id);
     }
 }
