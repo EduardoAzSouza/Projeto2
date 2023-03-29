@@ -44,7 +44,8 @@ namespace EmpresaController.Controllers
         {
             if (vo == null) return BadRequest();
             var empresa = await _repository.Adicionar(vo);
-            return Ok(empresa);
+            if (empresa != null)  return Ok(empresa);
+            else return BadRequest("Já existe uma empresa com esse Cnpj");
         }
 
         [HttpPut("Atualizar")]

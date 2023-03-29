@@ -45,7 +45,7 @@ namespace PessoaController.Controllers
             if (vo == null) return BadRequest();
             var pessoa = await _repository.Adicionar(vo);
             if(pessoa != null) return Ok(pessoa);
-            else return BadRequest("CPF Igual");
+            else return BadRequest("Já existe um cadastro com esse CPF ou Telefone");
         }
 
         [HttpPut("Atualizar")]
@@ -60,7 +60,7 @@ namespace PessoaController.Controllers
         public async Task<ActionResult> Apagar(long id)
         {
             var status = await _repository.Apagar(id);
-            if (!status) return BadRequest();
+            if (!status) return BadRequest("ID não encontrado");
             return Ok(status);
         }
 

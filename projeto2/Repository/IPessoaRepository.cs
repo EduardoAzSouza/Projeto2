@@ -8,7 +8,7 @@ namespace projeto2.API.Repository
         Task<PessoaVO> Adicionar(PessoaVO pessoaVo);
         Task<PessoaUpdateVO> Atualizar(PessoaUpdateVO pessoa);
         Task<IEnumerable<PessoaViewVO>> BuscarTodasPessoas();
-        Task<PessoaViewVO> BuscarPorNome(string nome);
+        Task<List<PessoaViewVO>> BuscarPorNome(string nome);
         Task<PessoaViewVO> BuscarPorID(long id);
         Task<bool> Apagar(long id);
         Task<bool> Atualizar_Status(long id);

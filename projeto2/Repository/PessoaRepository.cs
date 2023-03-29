@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using projeto2.API.Data.ValueObjects;
 using projeto2.API.Model;
 using projeto2.API.Model.context;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Net;
 
 namespace projeto2.API.Repository
 {
@@ -26,11 +23,11 @@ namespace projeto2.API.Repository
             return _mapper.Map<PessoaViewVO>(pessoa);
         }
 
-        public async Task<PessoaViewVO> BuscarPorNome(string nome)
+        public async Task<List<PessoaViewVO>> BuscarPorNome(string nome)
         {
-            Pessoa pessoa = await _context.Pessoas.Where(p => p.Nome == nome)
+            Pessoa pessoa = await _context.Pessoas.Where(p => p.Nome.Contains(nome))
                 .FirstOrDefaultAsync() ?? new Pessoa();
-            return _mapper.Map<PessoaViewVO>(pessoa);
+            return _mapper.Map<List<PessoaViewVO>>(pessoa);
         }
 
         public async Task<IEnumerable<PessoaViewVO>> BuscarTodasPessoas()
@@ -43,6 +40,12 @@ namespace projeto2.API.Repository
         public async Task<PessoaVO> Adicionar(PessoaVO vo)
         {
             Pessoa pessoa = _mapper.Map<Pessoa>(vo);
+            var verficaDoc = await _context.Pessoas
+                .Where(p => p.Documento == pessoa.Documento)
+                .FirstOrDefaultAsync();
+            var verificaTel = await _context.Pessoas
+                .Where(p => p.Telefone == pessoa.Telefone)
+                .FirstOrDefaultAsync();
             if (vo.Nome == null || vo.Telefone == null || vo.Documento == null || vo.Usuario == null ||
                 vo.Nome.Trim() == "" || vo.Telefone.Trim() == "" || vo.Documento.Trim() == "" || vo.Usuario.Trim() == "")
             {
@@ -52,9 +55,9 @@ namespace projeto2.API.Repository
             {
                 pessoa.Status = Enums.Status.Ativo;
             }
-            var verifica = await _context.Pessoas.Where(x => x.Documento == pessoa.Documento)
-                .FirstOrDefaultAsync();
-            if (verifica == null)
+            //var verifica = await _context.Pessoas.Where(x => x.Documento == pessoa.Documento)
+            //    .FirstOrDefaultAsync();
+            if (verficaDoc == null && verificaTel == null)
             {
                 _context.Pessoas.Add(pessoa);
                 await _context.SaveChangesAsync();
@@ -70,8 +73,15 @@ namespace projeto2.API.Repository
         public async Task<PessoaUpdateVO> Atualizar(PessoaUpdateVO vo)
         {
             Pessoa pessoa = _mapper.Map<Pessoa>(vo);
-            if (vo.Nome == null || vo.Telefone == null || vo.Documento == null || vo.Usuario == null ||
-                vo.Nome.Trim() == "" || vo.Telefone.Trim() == "" || vo.Documento.Trim() == "" || vo.Usuario.Trim() == "")
+            Pessoa pessoaDB = await _context.Pessoas
+                .AsNoTracking()
+                .Where(c => c.Id == pessoa.Id)
+                .FirstOrDefaultAsync();
+
+            pessoa.Documento = pessoaDB.Documento;
+
+            if (vo.Nome == null || vo.Telefone == null || vo.Usuario == null ||
+                vo.Nome.Trim() == "" || vo.Telefone.Trim() == "" || vo.Usuario.Trim() == "")
             {
                 pessoa.Status = Enums.Status.Pendente;
             }

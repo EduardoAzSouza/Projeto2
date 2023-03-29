@@ -11,8 +11,8 @@ using projeto2.API.Model.context;
 namespace projeto2.API.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    [Migration("20230317135915_First10Migration")]
-    partial class First10Migration
+    [Migration("20230329163521_FistMigration")]
+    partial class FistMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -91,13 +91,13 @@ namespace projeto2.API.Migrations
                             Id = 1L,
                             CNAE = "6911-7/01",
                             Capital = 1000000.0,
-                            Cnpj = "00.038.742/0001-06",
+                            Cnpj = "00038742000106",
                             DataAbertura = "20/04/2018",
                             EnderecoId = 1L,
                             NaturezaJuridica = "EIRELI",
                             NomeEmpresarial = "Kauê e Hadassa Telas ME",
                             NomeFantasia = "Telas ME",
-                            Status = "Inativo",
+                            Status = "Ativo",
                             Telefone = "(19) 99194-0652"
                         },
                         new
@@ -105,13 +105,13 @@ namespace projeto2.API.Migrations
                             Id = 2L,
                             CNAE = "2569-7/01",
                             Capital = 5498.0,
-                            Cnpj = "69.911.127/0001-69",
+                            Cnpj = "69911127000169",
                             DataAbertura = "08/06/2018",
                             EnderecoId = 2L,
                             NaturezaJuridica = "MEI",
                             NomeEmpresarial = "Marcela e Pedro Corretores Associados Ltda",
                             NomeFantasia = "Marcela e Pedro",
-                            Status = "Inativo",
+                            Status = "Ativo",
                             Telefone = "(11) 2550-6553"
                         },
                         new
@@ -119,13 +119,13 @@ namespace projeto2.API.Migrations
                             Id = 3L,
                             CNAE = "5879-7/01",
                             Capital = 50634.0,
-                            Cnpj = "43.658.842/0001-48",
+                            Cnpj = "43658842000148",
                             DataAbertura = "22/05/2018",
                             EnderecoId = 3L,
                             NaturezaJuridica = "LTDA",
                             NomeEmpresarial = "Natália e Lavínia Advocacia ME",
                             NomeFantasia = "Lavínia Advocacia",
-                            Status = "Inativo",
+                            Status = "Ativo",
                             Telefone = "(11) 3924-2963"
                         });
                 });
@@ -243,7 +243,7 @@ namespace projeto2.API.Migrations
                             Id = 1L,
                             Documento = "497.540.527-00",
                             Nome = "Kaique Igor",
-                            Status = "Inativo",
+                            Status = "Ativo",
                             Telefone = "(62) 99955-1199",
                             Usuario = "KaiqueIgor"
                         },
@@ -252,7 +252,7 @@ namespace projeto2.API.Migrations
                             Id = 2L,
                             Documento = "382.265.533-34",
                             Nome = "Leonardo Diogo Calebe Alves",
-                            Status = "Inativo",
+                            Status = "Ativo",
                             Telefone = "(61) 98807-2939",
                             Usuario = "Leonardo Diogo"
                         },
@@ -261,7 +261,7 @@ namespace projeto2.API.Migrations
                             Id = 3L,
                             Documento = "634.184.253-80",
                             Nome = "Filipe Geraldo Theo da Mata",
-                            Status = "Inativo",
+                            Status = "Ativo",
                             Telefone = "(71) 99998-0749",
                             Usuario = "Filipe Geraldo"
                         });

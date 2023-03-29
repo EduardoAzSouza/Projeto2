@@ -87,7 +87,7 @@ namespace projeto2.API.Model.context
             modelbuilder.Entity<Empresa>().HasData(new Empresa
             {
                 Id = 1,
-                Cnpj = "00.038.742/0001-06",
+                Cnpj = "00038742000106",
                 Status = Enums.Status.Ativo,
                 DataAbertura = "20/04/2018",
                 NomeEmpresarial = "Kauê e Hadassa Telas ME",
@@ -101,7 +101,7 @@ namespace projeto2.API.Model.context
             modelbuilder.Entity<Empresa>().HasData(new Empresa
             {
                 Id = 2,
-                Cnpj = "69.911.127/0001-69",
+                Cnpj = "69911127000169",
                 Status = Enums.Status.Ativo,
                 DataAbertura = "08/06/2018",
                 NomeEmpresarial = "Marcela e Pedro Corretores Associados Ltda",
@@ -115,7 +115,7 @@ namespace projeto2.API.Model.context
             modelbuilder.Entity<Empresa>().HasData(new Empresa
             {
                 Id = 3,
-                Cnpj = "43.658.842/0001-48",
+                Cnpj = "43658842000148",
                 Status = Enums.Status.Ativo,
                 DataAbertura = "22/05/2018",
                 NomeEmpresarial = "Natália e Lavínia Advocacia ME",

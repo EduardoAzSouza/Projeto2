@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace projeto2.API.Migrations
 {
-    public partial class First10Migration : Migration
+    public partial class FistMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -118,25 +118,25 @@ namespace projeto2.API.Migrations
                 columns: new[] { "id", "documento", "EmpresaId", "Nome", "status", "telefone", "usuario" },
                 values: new object[,]
                 {
-                    { 1L, "497.540.527-00", null, "Kaique Igor", "Inativo", "(62) 99955-1199", "KaiqueIgor" },
-                    { 2L, "382.265.533-34", null, "Leonardo Diogo Calebe Alves", "Inativo", "(61) 98807-2939", "Leonardo Diogo" },
-                    { 3L, "634.184.253-80", null, "Filipe Geraldo Theo da Mata", "Inativo", "(71) 99998-0749", "Filipe Geraldo" }
+                    { 1L, "497.540.527-00", null, "Kaique Igor", "Ativo", "(62) 99955-1199", "KaiqueIgor" },
+                    { 2L, "382.265.533-34", null, "Leonardo Diogo Calebe Alves", "Ativo", "(61) 98807-2939", "Leonardo Diogo" },
+                    { 3L, "634.184.253-80", null, "Filipe Geraldo Theo da Mata", "Ativo", "(71) 99998-0749", "Filipe Geraldo" }
                 });
 
             migrationBuilder.InsertData(
                 table: "empresa",
                 columns: new[] { "id", "cnae", "capital", "cnpj", "data_abertura", "EnderecoId", "Natureza_Juridica", "nome_empresarial", "nome_fantasia", "status", "telefone" },
-                values: new object[] { 1L, "6911-7/01", 1000000.0, "00.038.742/0001-06", "20/04/2018", 1L, "EIRELI", "Kauê e Hadassa Telas ME", "Telas ME", "Inativo", "(19) 99194-0652" });
+                values: new object[] { 1L, "6911-7/01", 1000000.0, "00038742000106", "20/04/2018", 1L, "EIRELI", "Kauê e Hadassa Telas ME", "Telas ME", "Ativo", "(19) 99194-0652" });
 
             migrationBuilder.InsertData(
                 table: "empresa",
                 columns: new[] { "id", "cnae", "capital", "cnpj", "data_abertura", "EnderecoId", "Natureza_Juridica", "nome_empresarial", "nome_fantasia", "status", "telefone" },
-                values: new object[] { 2L, "2569-7/01", 5498.0, "69.911.127/0001-69", "08/06/2018", 2L, "MEI", "Marcela e Pedro Corretores Associados Ltda", "Marcela e Pedro", "Inativo", "(11) 2550-6553" });
+                values: new object[] { 2L, "2569-7/01", 5498.0, "69911127000169", "08/06/2018", 2L, "MEI", "Marcela e Pedro Corretores Associados Ltda", "Marcela e Pedro", "Ativo", "(11) 2550-6553" });
 
             migrationBuilder.InsertData(
                 table: "empresa",
                 columns: new[] { "id", "cnae", "capital", "cnpj", "data_abertura", "EnderecoId", "Natureza_Juridica", "nome_empresarial", "nome_fantasia", "status", "telefone" },
-                values: new object[] { 3L, "5879-7/01", 50634.0, "43.658.842/0001-48", "22/05/2018", 3L, "LTDA", "Natália e Lavínia Advocacia ME", "Lavínia Advocacia", "Inativo", "(11) 3924-2963" });
+                values: new object[] { 3L, "5879-7/01", 50634.0, "43658842000148", "22/05/2018", 3L, "LTDA", "Natália e Lavínia Advocacia ME", "Lavínia Advocacia", "Ativo", "(11) 3924-2963" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_empresa_EnderecoId",
