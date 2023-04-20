@@ -17,6 +17,7 @@ namespace projeto2.API.Model
         public Status Status { get; set; }
 
         [Column("data_abertura")]
+        [StringLength(10)]
         public string DataAbertura { get; set; }
 
         [Column("nome_empresarial")]

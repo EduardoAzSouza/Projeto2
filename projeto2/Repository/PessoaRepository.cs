@@ -19,14 +19,14 @@ namespace projeto2.API.Repository
         public async Task<PessoaViewVO> BuscarPorID(long id)
         {
             Pessoa pessoa = await _context.Pessoas.Where(p => p.Id == id)
-                .FirstOrDefaultAsync() ?? new Pessoa();
+                .FirstOrDefaultAsync();
             return _mapper.Map<PessoaViewVO>(pessoa);
         }
 
         public async Task<List<PessoaViewVO>> BuscarPorNome(string nome)
         {
-            Pessoa pessoa = await _context.Pessoas.Where(p => p.Nome.Contains(nome))
-                .FirstOrDefaultAsync() ?? new Pessoa();
+            List<Pessoa> pessoa = await _context.Pessoas.Where(p => p.Nome.Contains(nome))
+                .ToListAsync();
             return _mapper.Map<List<PessoaViewVO>>(pessoa);
         }
 
@@ -55,8 +55,7 @@ namespace projeto2.API.Repository
             {
                 pessoa.Status = Enums.Status.Ativo;
             }
-            //var verifica = await _context.Pessoas.Where(x => x.Documento == pessoa.Documento)
-            //    .FirstOrDefaultAsync();
+
             if (verficaDoc == null && verificaTel == null)
             {
                 _context.Pessoas.Add(pessoa);

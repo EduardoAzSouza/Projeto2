@@ -68,6 +68,7 @@ namespace projeto2.API.Repository
 
         public async Task<EmpresaUpdateVO> Atualizar(EmpresaUpdateVO vo)
         {
+            
             Empresa empresa = _mapper.Map<Empresa>(vo);
             Empresa empresaDB = await _context.Empresas
                 .AsNoTracking()

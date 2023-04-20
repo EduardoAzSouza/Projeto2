@@ -52,15 +52,17 @@ namespace EmpresaController.Controllers
         public async Task<ActionResult<EmpresaUpdateVO>> Atualizar([FromBody] EmpresaUpdateVO vo)
         {
             if (vo == null) return BadRequest();
+            if (vo.Id == 0) return BadRequest("Id não pode ser 0");
             var empresa = await _repository.Atualizar(vo);
-            return Ok(empresa);
+            if (empresa != null) return Ok(empresa);
+            else return BadRequest("Id invalido");
         }
 
         [HttpDelete("Deletar/{id}")]
         public async Task<ActionResult> Apagar(long id)
         {
             var status = await _repository.Apagar(id);
-            if (!status) return BadRequest();
+            if (!status) return BadRequest("Existem Pessoas cadastradas na empresa");
             return Ok(status);
         }
         [HttpPut("alterar_status")]

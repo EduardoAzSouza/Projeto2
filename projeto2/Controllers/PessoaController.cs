@@ -27,8 +27,8 @@ namespace PessoaController.Controllers
         public async Task<ActionResult<PessoaViewVO>> BuscarPorID(long id)
         {
             var pessoa = await _repository.BuscarPorID(id);
-            if (pessoa == null) return NotFound();
-            return Ok(pessoa);
+            if (pessoa == null) return BadRequest("ID não encontrado");
+            else return Ok(pessoa);
         }
 
         [HttpGet("BuscarPorNome/{nome}")]
@@ -68,7 +68,7 @@ namespace PessoaController.Controllers
         public async Task<ActionResult> Atualizar_Status(long id)
         {
             var status = await _repository.Atualizar_Status(id);
-            if (!status) return BadRequest();
+            if (!status) return BadRequest("Para ativar ou desativar, todos os dados devem ser preenchidos");
             return Ok(status);
         }
 
