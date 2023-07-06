@@ -58,8 +58,8 @@ namespace projeto2.API.Model.context
             {
                 Id = 1,
                 Nome = "Kaique Igor",
-                Documento = "497.540.527-00",
-                Telefone = "(62) 99955-1199",
+                Documento = "49754052700",
+                Telefone = "62999551199",
                 Status = Enums.Status.Ativo,
                 Usuario = "KaiqueIgor",
                 EmpresaId = null
@@ -68,8 +68,8 @@ namespace projeto2.API.Model.context
             {
                 Id = 2,
                 Nome = "Leonardo Diogo Calebe Alves",
-                Documento = "382.265.533-34",
-                Telefone = "(61) 98807-2939",
+                Documento = "38226553334",
+                Telefone = "61988072939",
                 Status = Enums.Status.Ativo,
                 Usuario = "Leonardo Diogo",
                 EmpresaId = null
@@ -78,8 +78,8 @@ namespace projeto2.API.Model.context
             {
                 Id = 3,
                 Nome = "Filipe Geraldo Theo da Mata",
-                Documento = "634.184.253-80",
-                Telefone = "(71) 99998-0749",
+                Documento = "63418425380",
+                Telefone = "71999980749",
                 Status = Enums.Status.Ativo,
                 Usuario = "Filipe Geraldo",
                 EmpresaId = null

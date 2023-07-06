@@ -31,6 +31,14 @@ namespace EmpresaController.Controllers
             return Ok(empresa);
         }
 
+        [HttpGet("BuscarPorId/{id}")]
+        public async Task<ActionResult<EmpresaViewVO>> BuscarPorId(long id)
+        {
+            var empresa = await _repository.BuscarPorId(id);
+            if (empresa == null) return NotFound();
+            return Ok(empresa);
+        }
+
         [HttpGet("BuscarPorCnpj/{cnpj}")]
         public async Task<ActionResult<EmpresaViewVO>> BuscarPorCnpj(string cnpj)
         {
@@ -65,7 +73,7 @@ namespace EmpresaController.Controllers
             if (!status) return BadRequest("Existem Pessoas cadastradas na empresa");
             return Ok(status);
         }
-        [HttpPut("alterar_status")]
+        [HttpPut("alterar_status/{id}")]
         public async Task<ActionResult> Atualizar_Status(long id)
         {
             var status = await _repository.Atualizar_Status(id);

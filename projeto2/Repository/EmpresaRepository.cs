@@ -25,6 +25,13 @@ namespace projeto2.API.Repository
             return _mapper.Map<List<EmpresaViewVO>>(empresa);
         }
 
+        public async Task<EmpresaViewVO> BuscarPorId(long id)
+        {
+            Empresa empresa = await _context.Empresas.Where(p => p.Id == id)
+                .Include(e => e.Endereco).FirstOrDefaultAsync();
+            return _mapper.Map<EmpresaViewVO>(empresa);
+        }
+
         public async Task<EmpresaViewVO> BuscarPorCnpj(string cnpj)
         {
             Empresa empresa = await _context.Empresas.Where(p => p.Cnpj == cnpj)
@@ -43,9 +50,8 @@ namespace projeto2.API.Repository
             var verficaCnpj = await _context.Empresas
                 .Where(p => p.Cnpj == empresa.Cnpj)
                 .FirstOrDefaultAsync();
-            if (vo.Cnpj == null || vo.DataAbertura == null || vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || vo.Telefone == null ||
-                vo.Cnpj == "string" || vo.DataAbertura == "string" || vo.NomeEmpresarial == "string" || vo.NomeFantasia == "string" || vo.NaturezaJuridica == "string" || vo.Telefone == "string" || vo.Capital == 0 ||
-                vo.Cnpj.Trim() == "" || vo.DataAbertura.Trim() == "" || vo.NomeEmpresarial.Trim() == "" || vo.NomeFantasia.Trim() == "" || vo.NaturezaJuridica.Trim() == "" || vo.Telefone.Trim() == "" || vo.Endereco == null)
+            if (vo.Cnpj == null || vo.DataAbertura == null || vo.NomeEmpresarial == null || vo.NomeFantasia == null || 
+                vo.NaturezaJuridica == null || vo.Telefone == null || vo.Endereco == null)
             {
                 empresa.Status = Enums.Status.Pendente;
             }
@@ -78,9 +84,8 @@ namespace projeto2.API.Repository
             empresa.Cnpj = empresaDB.Cnpj;
             empresa.DataAbertura = empresaDB.DataAbertura;
 
-            if (vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || vo.Telefone == null ||vo.CNAE == null ||
-                vo.NomeEmpresarial == "string" || vo.NomeFantasia == "string" || vo.NaturezaJuridica == "string" || vo.Telefone == "string" || vo.CNAE == "string" || vo.Capital == 0 ||
-                vo.NomeEmpresarial.Trim() == "" || vo.NomeFantasia.Trim() == "" || vo.NaturezaJuridica.Trim() == "" || vo.Telefone.Trim() == "" || vo.CNAE.Trim() == "" || vo.Endereco == null)
+            if (vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || 
+                vo.Telefone == null ||vo.CNAE == null || vo.Endereco == null)
             {
                 empresa.Status = Enums.Status.Pendente;
             }

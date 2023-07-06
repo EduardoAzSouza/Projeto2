@@ -64,7 +64,7 @@ namespace PessoaController.Controllers
             return Ok(status);
         }
 
-        [HttpPut("alterar_status")]
+        [HttpPut("alterar_status/{id}")]
         public async Task<ActionResult> Atualizar_Status(long id)
         {
             var status = await _repository.Atualizar_Status(id);
@@ -72,7 +72,7 @@ namespace PessoaController.Controllers
             return Ok(status);
         }
 
-        [HttpPut("vincular_empresa")]
+        [HttpPut("vincular_empresa/{pessoa_id}/{empresa_id}")]
         public async Task<ActionResult<PessoaViewVO>> vincular_empresa(long pessoa_id, long empresa_id)
         {
             if (pessoa_id <= 0) return BadRequest();

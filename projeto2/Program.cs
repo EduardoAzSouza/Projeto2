@@ -10,7 +10,11 @@ namespace projeto2.API
     {
         public static void Main(string[] args)
         {
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddCors();
 
             var connection = builder.Configuration["MySqlConnection:MySqlConnectionString"];
 
@@ -44,8 +48,14 @@ namespace projeto2.API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors(options =>
+            {
+                options.WithOrigins("http://localhost:3000");
+                options.AllowAnyMethod();
+                options.AllowAnyHeader();
+            });
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

@@ -9,6 +9,7 @@ namespace projeto2.API.Repository
         Task<EmpresaUpdateVO> Atualizar(EmpresaUpdateVO empresa);
         Task<List<EmpresaViewVO>> BuscarTodasEmpresas();
         Task<List<EmpresaViewVO>> BuscarPorNome(string nome);
+        Task<EmpresaViewVO> BuscarPorId(long id);
         Task<EmpresaViewVO> BuscarPorCnpj(string cnpj);
         Task<bool> Apagar(long id);
         Task<bool> Atualizar_Status(long id);
