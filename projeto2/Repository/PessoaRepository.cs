@@ -46,7 +46,8 @@ namespace projeto2.API.Repository
             var verificaTel = await _context.Pessoas
                 .Where(p => p.Telefone == pessoa.Telefone)
                 .FirstOrDefaultAsync();
-            if (vo.Nome == null || vo.Telefone == null || vo.Documento == null || vo.Usuario == null )
+            if (vo.Nome == null || vo.Telefone == null || vo.Documento == null || vo.Usuario == null ||
+               vo.Nome.Trim() == "" || vo.Telefone.Trim() == "" || vo.Documento.Trim() == "" || vo.Usuario.Trim() == "")
             {
                 pessoa.Status = Enums.Status.Pendente;
             }
@@ -79,7 +80,9 @@ namespace projeto2.API.Repository
             pessoa.Documento = pessoaDB.Documento;
             pessoa.EmpresaId = pessoaDB.EmpresaId;
 
-            if (vo.Nome == null || vo.Telefone == null || vo.Usuario == null )
+
+            if (vo.Nome == null || vo.Telefone == null || vo.Usuario == null ||
+                vo.Nome.Trim() == "" || vo.Telefone.Trim() == "" || vo.Usuario.Trim() == "")
             {
                 pessoa.Status = Enums.Status.Pendente;
             }

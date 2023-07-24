@@ -50,8 +50,8 @@ namespace projeto2.API.Repository
             var verficaCnpj = await _context.Empresas
                 .Where(p => p.Cnpj == empresa.Cnpj)
                 .FirstOrDefaultAsync();
-            if (vo.Cnpj == null || vo.DataAbertura == null || vo.NomeEmpresarial == null || vo.NomeFantasia == null || 
-                vo.NaturezaJuridica == null || vo.Telefone == null || vo.Endereco == null)
+            if (vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || vo.Telefone == null || vo.CNAE == null || vo.Capital == 0 ||
+                vo.NomeEmpresarial.Trim() == "" || vo.NomeFantasia.Trim() == "" || vo.NaturezaJuridica.Trim() == "" || vo.Telefone.Trim() == "" || vo.CNAE.Trim() == "" || vo.Endereco == null)
             {
                 empresa.Status = Enums.Status.Pendente;
             }
@@ -84,8 +84,8 @@ namespace projeto2.API.Repository
             empresa.Cnpj = empresaDB.Cnpj;
             empresa.DataAbertura = empresaDB.DataAbertura;
 
-            if (vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || 
-                vo.Telefone == null ||vo.CNAE == null || vo.Endereco == null)
+            if (vo.NomeEmpresarial == null || vo.NomeFantasia == null || vo.NaturezaJuridica == null || vo.Telefone == null || vo.CNAE == null ||
+                vo.Capital == 0 ||vo.NomeEmpresarial.Trim() == "" || vo.NomeFantasia.Trim() == "" || vo.NaturezaJuridica.Trim() == "" || vo.Telefone.Trim() == "" || vo.CNAE.Trim() == "" || vo.Endereco == null)
             {
                 empresa.Status = Enums.Status.Pendente;
             }
